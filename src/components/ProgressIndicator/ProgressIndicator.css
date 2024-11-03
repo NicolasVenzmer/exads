@@ -1,21 +1,38 @@
-.progress-indicator {
-  text-align: center;
-  margin: 1rem 0;
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    padding: 5px 40px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 19px;
 }
 
-.progress-indicator .dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.5rem;
+.progress {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    color: #22DAA8;
+    padding: 0px 0px 15px 0px;
 }
 
-.progress-indicator .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: #ddd;
+.progress-dots {
+    display: flex;
+    justify-content: center;
 }
 
-.progress-indicator .dot.active {
-  background-color: #28a745;
+.dot {
+    display: inline-block;
+    height: 18px;
+    width: 18px;
+    background-color: #ffffff;
+    border: 1px solid;
+    border-radius: 50%;
+    margin: 0 13px;
+}
+
+.dot.active {
+    background-color: #4CAF50;
 }

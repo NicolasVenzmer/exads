@@ -16,6 +16,6 @@
 
 .movie-cards {
     display: flex;
-    gap: 2rem;
+    gap: 32px;
     justify-content: center;
 }

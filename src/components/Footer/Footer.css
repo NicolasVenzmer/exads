@@ -3,9 +3,9 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: 1.5rem;
-    padding: 1rem 0;
-    font-size: 0.9rem;
+    gap: 24px;
+    padding: 16px 0px;
+    font-size: 14.4px;
     color: #aaa;
     z-index: 1;
 }
