@@ -1,25 +1,30 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import "./LandingPage.css";
 import Title from "../../components/Title/Title";
 import MovieCard from "../../components/MovieCard/MovieCard";
-import QuestionProgress from "../../components/QuestionProgress/QuestionProgress";
+import ProgressIndicator from "../../components/ProgressIndicator/ProgressIndicator";
 import Card from "../../components/Card/Card";
 
-const Questions = ({currentQuestionIndex, questionData, options, question, handleOption}) => {
+const Questions = ({ currentQuestionIndex, questionData, options, question, handleOption }) => {
     return (
         <div className="content-wrapper">
-            <QuestionProgress currentStep={currentQuestionIndex + 1} totalSteps={questionData.length}/>
-            <Title text={question}/>
+            <ProgressIndicator currentStep={currentQuestionIndex + 1} totalSteps={questionData.questions.length} label="QUESTION" />
+            <Title text={question} />
             <div className="movie-cards">
-                {options.map(({title, image}, index) => (
-                    <MovieCard key={title} title={title} image={image} index={index} onClick={handleOption}/>
+                {options.map((option) => (
+                    <MovieCard
+                        index={option.id}
+                        title={option.title}
+                        image={option.image}
+                        handleSelection={handleOption}
+                    />
                 ))}
             </div>
         </div>
     )
 }
 
-const ResultCard = ({handleWatchClick}) => {
+const ResultCard = ({handleWatchClick }) => {
     return (
         <div className="content-wrapper">
             <Card
@@ -33,35 +38,45 @@ const ResultCard = ({handleWatchClick}) => {
 
 function LandingPage({questionData}) {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [selectedMovie, setSelectedMovie] = useState({});
     const [showResult, setShowResult] = useState(false);
+    const [currentOptions, setCurrentOptions] = useState([]);
 
-    const handleOption = (movieIndex) => {
-        setSelectedMovie(movieIndex)
-        if (currentQuestionIndex < questionData.length - 1) {
-            setCurrentQuestionIndex(currentQuestionIndex + 1);
+    useEffect(() => {
+        const shuffledOptions = questionData.options.sort(() => Math.random() - 0.5);
+        setCurrentOptions(shuffledOptions.slice(0, 3));
+    }, []);
+
+    const { questions, options } = questionData;
+
+    const handleOption = (movieId) => {
+        const movie = currentOptions.find(option => option.id === movieId);
+        setSelectedMovie(movie)
+        if (currentQuestionIndex === questions.length - 1) {
+            setShowResult(true);
         }
-        if (currentQuestionIndex === questionData.length - 1) setShowResult(true);
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            const nextOptions = movie.nextOptions.map(optionId => options.find(option => option.id === optionId));
+            setCurrentOptions(nextOptions);
     };
 
     const handleWatchClick = () => {
-        const movie = questionData[currentQuestionIndex].options[selectedMovie];
-        window.open(movie.imdb, "_blank");
+        window.open(selectedMovie.imdb, "_blank");
     }
 
-    const {question, options} = questionData[currentQuestionIndex];
+    const currentQuestion = questions[currentQuestionIndex];
 
     return (
         <div className="landing-page">
             {showResult ? (
-                <ResultCard handleWatchClick={handleWatchClick}/>
+                <ResultCard handleWatchClick={handleWatchClick} />
             ) : (
                 <Questions
                     questionData={questionData}
                     currentQuestionIndex={currentQuestionIndex}
                     handleOption={handleOption}
-                    options={options}
-                    question={question}
+                    options={currentOptions}
+                    question={currentQuestion}
                 />
             )}
         </div>

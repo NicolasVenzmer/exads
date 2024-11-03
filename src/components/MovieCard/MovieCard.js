@@ -1,10 +1,10 @@
 import React from 'react';
 import "./MovieCard.css";
 
-function MovieCard({title, image, index, onClick}) {
+function MovieCard({ index, title, image, handleSelection }) {
     return (
-        <div className="movie-card" onClick={() => onClick(index)}>
-            <img src={image} alt={title}/>
+        <div key={index} className="movie-card" onClick={()=> handleSelection(index)}>
+            <img src={image} alt={title} />
         </div>
     );
 }
