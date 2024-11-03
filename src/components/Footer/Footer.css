@@ -1,0 +1,15 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    font-size: 0.9rem;
+    color: #aaa;
+    z-index: 1;
+}
+
+p {
+    z-index: 1;
+}

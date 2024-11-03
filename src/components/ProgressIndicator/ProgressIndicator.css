@@ -1,0 +1,21 @@
+.progress-indicator {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.progress-indicator .dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.progress-indicator .dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ddd;
+}
+
+.progress-indicator .dot.active {
+  background-color: #28a745;
+}

@@ -1,0 +1,13 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #C72C3C;
+    background-color: black;
+    border: 2px solid #C72C3C;
+    border-radius: 4px;
+    width: 187px;
+    height: 62px;
+}
